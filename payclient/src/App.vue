@@ -1,15 +1,13 @@
 <template>
   <div id="app">
-    <pays/>
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
-import Pays from './components/pays.vue'
 export default {
   name: 'App',
   components: {
-    Pays
   }
 }
 </script>
@@ -22,5 +20,8 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+html {
+  background:#f5f5f5;
 }
 </style>
