@@ -6,7 +6,7 @@ import 'vue-material/dist/theme/default.css'
 import VueRouter from 'vue-router'
 
 
-import JeuDrapeau from './components/JeuDrapeau'
+import JeuDrapeau from './components/JeuDrapeau/JeuDrapeau'
 import Accueil from './components/Accueil'
 
 Vue.config.productionTip = false
