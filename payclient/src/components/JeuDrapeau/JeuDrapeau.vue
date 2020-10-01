@@ -4,11 +4,11 @@
 <template src="./JeuDrapeauTemplate.html"></template>
 
 <script>
-import PaysCard from '@/components/PaysCard';
+import PaysCard from "@/components/PaysCard";
 export default {
   name: "JeuDrapeau",
   components: {
-    PaysCard
+    PaysCard,
   },
   data: () => {
     return {
@@ -16,12 +16,13 @@ export default {
       lesPaysRegion: undefined,
       //les pays qui passent pendant le jeu
       lesPaysATrouver: [],
-      //le pays qui passe pendant le jeu 
+      //le pays qui passe pendant le jeu
       randomPays: undefined,
       paysInput: undefined,
+      //nombre de pays total lors du jeu
       paysPasse: 0,
       paysATrouver: 10,
-      regionATrouver: [],
+      regionATrouver: [""],
       nbErreurPaysCourant: 0,
       nbErreurPossible: 3,
       paysTrouves: 0,
@@ -51,7 +52,7 @@ export default {
         });
     },
     getPaysRegion(region, callback) {
-      var url = "https://restcountries.eu/rest/v2/region/"+region;
+      var url = "https://restcountries.eu/rest/v2/region/" + region;
       fetch(url)
         .then((response) => {
           response.json().then((data) => {
@@ -73,9 +74,8 @@ export default {
       //on fait un random pour avoir le pays
       this.randomPays = this.lesPays[rando];
       //on fait un tant que les pays a déjà été trouvé on random le pays
-      while(this.lesPaysATrouver.includes(this.randomPays))
-      {
-
+      while (this.lesPaysATrouver.includes(this.randomPays)) {
+        rando = Math.floor(Math.random() * (max - min)) + min;
         this.randomPays = this.lesPays[rando];
       }
     },
@@ -91,7 +91,7 @@ export default {
             this.normalizePays(this.paysInput).toLowerCase() ===
               this.normalizePays(this.randomPays.name).toLowerCase()
           ) {
-              this.validerLemot(true);
+            this.validerLemot(true);
           }
           //si on a pas trouvé le nom du pays
           else {
@@ -106,16 +106,14 @@ export default {
             }
           }
         }
-        //si la tradution francaise n'existe pas 
-        else
-        {
-          if (this.normalizePays(this.paysInput).toLowerCase() ===
-              this.normalizePays(this.randomPays.name).toLowerCase())
-          {
-              this.validerLemot(true);
-          }
-          else
-          {
+        //si la tradution francaise n'existe pas
+        else {
+          if (
+            this.normalizePays(this.paysInput).toLowerCase() ===
+            this.normalizePays(this.randomPays.name).toLowerCase()
+          ) {
+            this.validerLemot(true);
+          } else {
             if (this.nbErreurPaysCourant < this.nbErreurPossible) {
               this.nbErreurPaysCourant++;
               this.paysInput = this.randomPays.name.slice(
@@ -129,27 +127,41 @@ export default {
         }
       }
     },
-    validerLemot(val)
-    {
-        if (val ==true)
+    validerLemot(val) {
+      if (val == true) {
+        this.paysPasse++;
+        this.paysTrouves++;
+        this.paysInput = undefined;
+        this.nbErreurPaysCourant = 0;
+        //si le nombre de paysPasse est différent du nombre de pays a trouver on continue le jeu
+        if(this.paysPasse != this.paysATrouver)
         {
-          this.paysPasse++;
-            this.paysTrouves++;
-            this.paysInput = undefined;
-            this.nbErreurPaysCourant = 0;
-            this.setRandomPays(() => {
-                this.lesPaysATrouver.push(this.randomPays);
-            });
+          this.setRandomPays(() => {
+            this.lesPaysATrouver.push(this.randomPays);
+          });
         }
         else
         {
-              this.paysPasse++;
-              this.paysInput = undefined;
-              this.nbErreurPaysCourant = 0;
-              this.setRandomPays(() => {
-                this.lesPaysATrouver.push(this.randomPays);
-              });
+          this.lesPaysATrouver.push(this.randomPays);
+
         }
+      } else {
+        this.paysPasse++;
+        this.paysInput = undefined;
+        this.nbErreurPaysCourant = 0;
+         //si le nombre de paysPasse est différent du nombre de pays a trouver on continue le jeu
+        if(this.paysPasse != this.paysATrouver)
+        {
+          this.setRandomPays(() => {
+            this.lesPaysATrouver.push(this.randomPays);
+          });
+        }
+        else
+        {
+          this.lesPaysATrouver.push(this.randomPays);
+
+        }
+      }
     },
     normalizePays(pays) {
       return pays.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
@@ -158,28 +170,43 @@ export default {
       this.validerLemot(false);
     },
     envoyerLesParametresJeu() {
-      if(this.regionATrouver.length>0)
-      {
+      if (this.regionATrouver.length > 0) {
         this.randomPays = undefined;
         this.lesPays = [];
-        for(var region of this.regionATrouver)
-        {
-          if(region == "")
-          {
-            this.getPays( () => {
+        for (var region of this.regionATrouver) {
+          //si la region n'est egal a rien c'est a dire toutes les regions du monde
+          if (region == "" || region == undefined) {
+            //on recupere tous les pays
+            this.getPays(() => {
               this.setRandomPays(() => {});
+              //si le nombre de pays que l'utilisateur veut est superieur au nombre de pays qu'on a
+              //alors on met le max possible
+              
+              if (this.paysATrouver > this.lesPays.length) {
+                this.paysATrouver = this.lesPays.length;
+              }
             });
             this.parametreJeuDrapeau = false;
             return false;
           }
+          //on recupere les pays de la region en cours
           this.getPaysRegion(region, () => {
             Array.prototype.push.apply(this.lesPays, this.lesPaysRegion);
             this.setRandomPays(() => {});
+
+            //si le nombre de pays que l'utilisateur veut est superieur au nombre de pays qu'on a
+            //alors on met le max possible
+            if (this.paysATrouver > this.lesPays.length) {
+              this.paysATrouver = this.lesPays.length;
+            }
           });
         }
       }
+      else{
+        this.regionATrouver= [""];
+        this.envoyerLesParametresJeu();
+      }
       this.parametreJeuDrapeau = false;
-      
     },
   },
 };
