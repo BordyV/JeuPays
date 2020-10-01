@@ -36,6 +36,7 @@ export default {
     });
   },
   methods: {
+    //fonction qui recupere tout les pays
     getPays(callback) {
       var url = "https://restcountries.eu/rest/v2/all";
       fetch(url)
@@ -51,6 +52,7 @@ export default {
           alert("Une erreur est survenue lors du chargement des données");
         });
     },
+    //fonction qui recupere les pays par region
     getPaysRegion(region, callback) {
       var url = "https://restcountries.eu/rest/v2/region/" + region;
       fetch(url)

@@ -1,6 +1,6 @@
 <div class="jeudrapeau">
     <div v-if="paysPasse != paysATrouver && randomPays && !parametreJeuDrapeau">
-      <h2>{{ paysPasse + "/" + paysATrouver + " pays" }}</h2>
+      <h2>{{ paysPasse+1 + "/" + paysATrouver + " pays" }}</h2>
       <img width="25%" :src="randomPays.flag" />
       <div class="md-layout">
         <md-field
