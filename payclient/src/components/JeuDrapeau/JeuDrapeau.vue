@@ -4,12 +4,19 @@
 <template src="./JeuDrapeauTemplate.html"></template>
 
 <script>
+import PaysCard from '@/components/PaysCard';
 export default {
   name: "JeuDrapeau",
+  components: {
+    PaysCard
+  },
   data: () => {
     return {
       lesPays: undefined,
       lesPaysRegion: undefined,
+      //les pays qui passent pendant le jeu
+      lesPaysATrouver: [],
+      //le pays qui passe pendant le jeu 
       randomPays: undefined,
       paysInput: undefined,
       paysPasse: 0,
@@ -24,7 +31,7 @@ export default {
   mounted() {
     this.parametreJeuDrapeau = true;
     this.getPays(() => {
-      this.setRandomPays();
+      this.setRandomPays(() => {});
     });
   },
   methods: {
@@ -58,11 +65,19 @@ export default {
           alert("Une erreur est survenue lors du chargement des données");
         });
     },
-    setRandomPays() {
+    setRandomPays(callback) {
       var min = Math.ceil(0);
       var max = Math.floor(this.lesPays.length);
       var rando = Math.floor(Math.random() * (max - min)) + min;
+      callback();
+      //on fait un random pour avoir le pays
       this.randomPays = this.lesPays[rando];
+      //on fait un tant que les pays a déjà été trouvé on random le pays
+      while(this.lesPaysATrouver.includes(this.randomPays))
+      {
+
+        this.randomPays = this.lesPays[rando];
+      }
     },
     correctionPays() {
       if (this.paysInput) {
@@ -122,14 +137,18 @@ export default {
             this.paysTrouves++;
             this.paysInput = undefined;
             this.nbErreurPaysCourant = 0;
-            this.setRandomPays();
+            this.setRandomPays(() => {
+                this.lesPaysATrouver.push(this.randomPays);
+            });
         }
         else
         {
               this.paysPasse++;
               this.paysInput = undefined;
               this.nbErreurPaysCourant = 0;
-              this.setRandomPays();
+              this.setRandomPays(() => {
+                this.lesPaysATrouver.push(this.randomPays);
+              });
         }
     },
     normalizePays(pays) {
@@ -148,14 +167,14 @@ export default {
           if(region == "")
           {
             this.getPays( () => {
-              this.setRandomPays();
+              this.setRandomPays(() => {});
             });
             this.parametreJeuDrapeau = false;
             return false;
           }
           this.getPaysRegion(region, () => {
             Array.prototype.push.apply(this.lesPays, this.lesPaysRegion);
-            this.setRandomPays();
+            this.setRandomPays(() => {});
           });
         }
       }

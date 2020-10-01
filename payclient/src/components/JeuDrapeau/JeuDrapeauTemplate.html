@@ -29,7 +29,9 @@
     <div v-if="paysPasse == paysATrouver">
       <h1>Tu as trouvé {{ paysTrouves }} sur {{ paysATrouver }} pays.</h1>
       <router-link to="/">Retour a l'accueil</router-link>
+      <paysCard v-for="pays in lesPaysATrouver" :paysDeLaCard="pays"></paysCard>  
     </div>
+    
     <template>
       <div>
         <md-dialog
