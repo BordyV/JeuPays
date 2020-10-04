@@ -22,7 +22,7 @@ export default {
       //nombre de pays total lors du jeu
       paysPasse: 0,
       paysATrouver: 10,
-      regionATrouver: [""],
+      regionATrouver: [],
       nbErreurPaysCourant: 0,
       nbErreurPossible: 3,
       paysTrouves: 0,
