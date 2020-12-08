@@ -26,6 +26,7 @@ export default {
       nbErreurPaysCourant: 0,
       nbErreurPossible: 3,
       paysTrouves: 0,
+      lesPaysTrouves: [],
       parametreJeuDrapeau: false,
     };
   },
@@ -133,6 +134,7 @@ export default {
       if (val == true) {
         this.paysPasse++;
         this.paysTrouves++;
+        this.lesPaysTrouves.push(this.randomPays);
         this.paysInput = undefined;
         this.nbErreurPaysCourant = 0;
         //si le nombre de paysPasse est différent du nombre de pays a trouver on continue le jeu

@@ -7,7 +7,7 @@
           </md-card-media>
     
           <md-card-header>
-            <div class="md-title" v-if="paysDeLaCard.translations.fr"> {{paysDeLaCard.translations.fr}}</div>
+            <div class="md-title" v-bind:class="[reussite]" v-if="paysDeLaCard.translations.fr"> {{paysDeLaCard.translations.fr}}</div>
             <div class="md-title" v-else> {{paysDeLaCard.name}}</div>
             <div class="md-subhead" v-if="paysDeLaCard.capital">Capitale: {{paysDeLaCard.capital}}</div>
             <div class="md-subhead" v-else>Capitale inconnue</div>
@@ -21,9 +21,7 @@
 <script>
 export default {
   name: "paysCard",
-  props: {
-      paysDeLaCard: Object,
-  },
+  props: ["paysDeLaCard","reussite"],
   data: () => {
     return {
       
@@ -47,5 +45,11 @@ export default {
 }
 .cardPays {
   display: inline;
+}
+.echec {
+  color: #CE1126;
+}
+.succes {
+  color: #009543;
 }
 </style>

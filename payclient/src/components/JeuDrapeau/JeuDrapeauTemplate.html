@@ -1,7 +1,7 @@
 <div class="jeudrapeau">
     <div v-if="paysPasse != paysATrouver && randomPays && !parametreJeuDrapeau">
       <h2>{{ paysPasse+1 + "/" + paysATrouver + " pays" }}</h2>
-      <img width="25%" :src="randomPays.flag" />
+      <img id="drapeau" width="25%" :src="randomPays.flag" />
       <div class="md-layout">
         <md-field
           :class="{ 'md-invalid': nbErreurPaysCourant > 0 }"
@@ -29,7 +29,7 @@
     <div v-if="paysPasse == paysATrouver">
       <h1>Tu as trouvé {{ paysTrouves }} sur {{ paysATrouver }} pays.</h1>
       <router-link to="/">Retour a l'accueil</router-link>
-      <paysCard v-for="pays in lesPaysATrouver" :paysDeLaCard="pays"></paysCard>  
+      <paysCard v-for="pays in lesPaysATrouver" :paysDeLaCard="pays" :reussite="lesPaysTrouves.includes(pays)? 'succes':'echec'" > </paysCard>  
     </div>
     
     <template>
