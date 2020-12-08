@@ -16,6 +16,7 @@ Après des discussions avec des camarades, il serait plus judicieux de garder le
 Oui ce projet aura une evolution qui est en cours mais ne sera pas sur le même repository.
 L'evolution sera une version mobile comportant les données de : 
 https://www.data.gouv.fr/fr/datasets/etats-et-capitales-du-monde/
+
 et pour les drapeaux : 
 https://github.com/mledoze/countries/tree/master/data
 
