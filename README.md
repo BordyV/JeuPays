@@ -3,7 +3,8 @@ JeuPays est un side project ou on va utiliser une api pour récupérer des pays 
 api utilisé : https://restcountries.eu/
 
 ## Pourquoi ?
-Ce projet est avant tout un entrainement à VueJS le but est d'apprendre les pays.
+Ce projet est avant tout un entrainement à VueJS où le but est d'apprendre les pays.
+Il a été développé en parallèle de mes cours de vuejS en Master 1. 
 
 ## Pas vraiment fini ?
 Oui ce projet n'est pas vraiment fini. 
