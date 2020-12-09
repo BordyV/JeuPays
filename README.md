@@ -24,6 +24,10 @@ et pour les drapeaux :
 https://github.com/mledoze/countries/tree/master/data
 
 ## Sinon comment on lance le projet ?
+### via le lien 
+https://www.valentinbordy.fr/jeupays/
+
+### via l'installation
 il suffit de le télécharger et de faire dans un terminal windows à la racine du projet :
 
 ```sh
