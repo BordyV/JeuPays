@@ -15,6 +15,7 @@
             id="paysInput"
             v-model="paysInput"
             @change="correctionPays()"
+            autocomplete="off"
           />
           <span class="md-error">
             {{ nbErreurPaysCourant + "/" + nbErreurPossible }} erreurs </span

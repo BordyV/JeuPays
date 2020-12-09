@@ -15,6 +15,7 @@ Vue.use(VueMaterial)
 
 const router = new VueRouter({
   routes:  [
+    { path: '*', name: 'catchAll', component: Accueil },
     { path: '/', component: Accueil },
     { path: '/jeuDrapeau/',name:'detail', component: JeuDrapeau, props:true },
   ],
