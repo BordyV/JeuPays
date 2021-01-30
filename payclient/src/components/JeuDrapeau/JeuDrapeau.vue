@@ -35,6 +35,7 @@ export default {
     this.getPays(() => {
       this.setRandomPays(() => {});
     });
+    document.getElementById("overlay").style.display = "block";
   },
   methods: {
     //fonction qui recupere tout les pays
@@ -138,32 +139,24 @@ export default {
         this.paysInput = undefined;
         this.nbErreurPaysCourant = 0;
         //si le nombre de paysPasse est différent du nombre de pays a trouver on continue le jeu
-        if(this.paysPasse != this.paysATrouver)
-        {
+        if (this.paysPasse != this.paysATrouver) {
           this.setRandomPays(() => {
             this.lesPaysATrouver.push(this.randomPays);
           });
-        }
-        else
-        {
+        } else {
           this.lesPaysATrouver.push(this.randomPays);
-
         }
       } else {
         this.paysPasse++;
         this.paysInput = undefined;
         this.nbErreurPaysCourant = 0;
-         //si le nombre de paysPasse est différent du nombre de pays a trouver on continue le jeu
-        if(this.paysPasse != this.paysATrouver)
-        {
+        //si le nombre de paysPasse est différent du nombre de pays a trouver on continue le jeu
+        if (this.paysPasse != this.paysATrouver) {
           this.setRandomPays(() => {
             this.lesPaysATrouver.push(this.randomPays);
           });
-        }
-        else
-        {
+        } else {
           this.lesPaysATrouver.push(this.randomPays);
-
         }
       }
     },
@@ -185,7 +178,7 @@ export default {
               this.setRandomPays(() => {});
               //si le nombre de pays que l'utilisateur veut est superieur au nombre de pays qu'on a
               //alors on met le max possible
-              
+
               if (this.paysATrouver > this.lesPays.length) {
                 this.paysATrouver = this.lesPays.length;
               }
@@ -205,12 +198,13 @@ export default {
             }
           });
         }
-      }
-      else{
-        this.regionATrouver= [""];
+      } else {
+        this.regionATrouver = [""];
         this.envoyerLesParametresJeu();
       }
       this.parametreJeuDrapeau = false;
+      //on cache la div noire poru cliquer
+      document.getElementById("overlay").style.display = "none";
     },
   },
 };

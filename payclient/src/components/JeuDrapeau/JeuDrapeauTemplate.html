@@ -1,86 +1,60 @@
 <div class="jeudrapeau">
-    <div v-if="paysPasse != paysATrouver && randomPays && !parametreJeuDrapeau">
-      <h2>{{ paysPasse+1 + "/" + paysATrouver + " pays" }}</h2>
-      <img id="drapeau" width="25%" :src="randomPays.flag" />
-      <div class="md-layout">
-        <md-field
-          :class="{ 'md-invalid': nbErreurPaysCourant > 0 }"
-          class="md-layout-item"
-        >
-          <label for="first-name"
-            >Quel est le pays correspondant au drapeau ?</label
-          >
-          <md-input
-            name="paysInput"
-            id="paysInput"
-            v-model="paysInput"
-            @change="correctionPays()"
-            autocomplete="off"
-          />
-          <span class="md-error">
-            {{ nbErreurPaysCourant + "/" + nbErreurPossible }} erreurs </span
-          >
-        </md-field>
-        <md-button class="md-raised md-primary" @click="passerPays()"
-          >Passer le pays</md-button
-        >
-      </div>
+  <div v-if="paysPasse != paysATrouver && randomPays && !parametreJeuDrapeau">
+    <h2>{{ paysPasse+1 + "/" + paysATrouver + " pays" }}</h2>
+    <img id="drapeau" width="25%" :src="randomPays.flag" />
+    <div class="md-layout">
+      <md-field :class="{ 'md-invalid': nbErreurPaysCourant > 0 }" class="md-layout-item">
+        <label for="first-name">Quel est le pays correspondant au drapeau ?</label>
+        <md-input name="paysInput" id="paysInput" v-model="paysInput" @change="correctionPays()" autocomplete="off" />
+        <span class="md-error">
+          {{ nbErreurPaysCourant + "/" + nbErreurPossible }} erreurs </span>
+      </md-field>
+      <md-button class="md-raised md-primary" @click="passerPays()">Passer le pays</md-button>
     </div>
-
-    <div v-if="paysPasse == paysATrouver">
-      <h1>Tu as trouvé {{ paysTrouves }} sur {{ paysATrouver }} pays.</h1>
-      <router-link to="/">Retour a l'accueil</router-link>
-      <paysCard v-for="pays in lesPaysATrouver" :paysDeLaCard="pays" :reussite="lesPaysTrouves.includes(pays)? 'succes':'echec'" > </paysCard>  
-    </div>
-    
-    <template>
-      <div>
-        <md-dialog
-          :md-active.sync="parametreJeuDrapeau"
-          id="parametreJeuDrapeau"
-        >
-          <md-dialog-title>Parametre du jeu des drapeaux : </md-dialog-title>
-          <form @submit.prevent="envoyerLesParametresJeu()">
-            <md-dialog-content class="md-layout">
-              <md-field
-                :class="{ 'md-invalid': !paysATrouver > 0 }"
-                class="md-layout-item"
-              >
-                <label>Nombre de drapeau pour le jeu : </label>
-                <md-input
-                  name="nbDrapeau"
-                  id="nbDapeau"
-                  v-model="paysATrouver"
-                  type="number"
-                  required
-                >
-                </md-input>
-                <span class="md-error">Le nombre de pays n'est pas valide</span>
-              </md-field>
-              <div class="md-layout-item">
-                <md-field>
-                  <md-select
-                    v-model="regionATrouver"
-                    name="region"
-                    id="regionATrouver"
-                    placeholder="region a trouver"
-                    multiple
-                  >
-                    <md-option value="">Toutes</md-option>
-                    <md-option value="africa">Afrique</md-option>
-                    <md-option value="americas">Amerique</md-option>
-                    <md-option value="asia">Asie</md-option>
-                    <md-option value="europe">Europe</md-option>
-                    <md-option value="oceania">Oceanie</md-option>
-                  </md-select>
-                </md-field>
-              </div>
-            </md-dialog-content>
-            <md-dialog-actions>
-              <md-button class="md-primary" type="submit">Jouer</md-button>
-            </md-dialog-actions>
-          </form>
-        </md-dialog>
-      </div>
-    </template>
   </div>
+
+  <div v-if="paysPasse == paysATrouver">
+    <h1>Tu as trouvé {{ paysTrouves }} sur {{ paysATrouver }} pays.</h1>
+    <router-link to="/">Retour a l'accueil</router-link>
+    <paysCard v-for="pays in lesPaysATrouver" :paysDeLaCard="pays"
+      :reussite="lesPaysTrouves.includes(pays)? 'succes':'echec'"> </paysCard>
+  </div>
+
+  <template>
+    <div>
+      <md-dialog :md-active.sync="parametreJeuDrapeau" id="parametreJeuDrapeau">
+        <md-dialog-title>Parametre du jeu des drapeaux : </md-dialog-title>
+        <form @submit.prevent="envoyerLesParametresJeu()">
+          <md-dialog-content class="md-layout">
+            <md-field :class="{ 'md-invalid': !paysATrouver > 0 }" class="md-layout-item">
+              <label>Nombre de drapeau pour le jeu : </label>
+              <md-input name="nbDrapeau" id="nbDapeau" v-model="paysATrouver" type="number" required>
+              </md-input>
+              <span class="md-error">Le nombre de pays n'est pas valide</span>
+            </md-field>
+            <div class="md-layout-item">
+              <md-field>
+                <md-select v-model="regionATrouver" name="region" id="regionATrouver" placeholder="region a trouver"
+                  multiple>
+                  <md-option value="">Toutes</md-option>
+                  <md-option value="africa">Afrique</md-option>
+                  <md-option value="americas">Amerique</md-option>
+                  <md-option value="asia">Asie</md-option>
+                  <md-option value="europe">Europe</md-option>
+                  <md-option value="oceania">Oceanie</md-option>
+                </md-select>
+              </md-field>
+            </div>
+          </md-dialog-content>
+          <md-dialog-actions>
+            <md-button class="md-primary" type="submit">Jouer</md-button>
+          </md-dialog-actions>
+        </form>
+      </md-dialog>
+    </div>
+  </template>
+
+  <!--DIV POUR LE BLACK SCREEN-->
+  <div id="overlay"></div>
+  <!--FIN BLACK SCREEN-->
+</div>
