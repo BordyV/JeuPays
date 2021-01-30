@@ -27,6 +27,9 @@ https://github.com/mledoze/countries/tree/master/data
 ### via le lien 
 https://www.valentinbordy.fr/jeupays/
 
+### via l'application de bureau 
+il vous suffit de vous rendre dans les releases de ce projet git et de télécharger le fichier nommé payclient.Setup.x.x.x.exe
+
 ### via l'installation
 il suffit de le télécharger et de faire dans un terminal windows à la racine du projet :
 
