@@ -49,4 +49,3 @@ npm run serve
 puis il suffit de cliquer sur le lien affiché dans le terminal pour ma part: 
 
 Local:   http://localhost:8081/
-
