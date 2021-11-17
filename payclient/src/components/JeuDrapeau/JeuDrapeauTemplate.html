@@ -1,7 +1,7 @@
 <div class="jeudrapeau">
   <div v-if="paysPasse != paysATrouver && randomPays && !parametreJeuDrapeau">
     <h2>{{ paysPasse+1 + "/" + paysATrouver + " pays" }}</h2>
-    <img id="drapeau" width="25%" :src="randomPays.flag" />
+    <img id="drapeau" width="25%" :src="randomPays.flags.svg" />
     <div class="md-layout">
       <md-field :class="{ 'md-invalid': nbErreurPaysCourant > 0 }" class="md-layout-item">
         <label for="first-name">Quel est le pays correspondant au drapeau ?</label>
@@ -36,7 +36,6 @@
               <md-field>
                 <md-select v-model="regionATrouver" name="region" id="regionATrouver" placeholder="region a trouver"
                   multiple>
-                  <md-option value="">Toutes</md-option>
                   <md-option value="africa">Afrique</md-option>
                   <md-option value="americas">Amerique</md-option>
                   <md-option value="asia">Asie</md-option>

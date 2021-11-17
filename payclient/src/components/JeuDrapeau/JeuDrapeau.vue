@@ -40,7 +40,7 @@ export default {
   methods: {
     //fonction qui recupere tout les pays
     getPays(callback) {
-      var url = "https://restcountries.eu/rest/v2/all";
+      var url = "https://restcountries.com/v3.1/all";
       fetch(url)
         .then((response) => {
           response.json().then((data) => {
@@ -56,7 +56,7 @@ export default {
     },
     //fonction qui recupere les pays par region
     getPaysRegion(region, callback) {
-      var url = "https://restcountries.eu/rest/v2/region/" + region;
+      var url = "https://restcountries.com/v3.1/region/" + region;
       fetch(url)
         .then((response) => {
           response.json().then((data) => {
@@ -85,15 +85,17 @@ export default {
     },
     correctionPays() {
       if (this.paysInput) {
-        if (this.randomPays.translations.fr) {
+        if (this.randomPays.translations.fra) {
           //si le petit est égal a la traduction francaise ou anglaise
           if (
             this.normalizePays(this.paysInput).toLowerCase() ===
               this.normalizePays(
-                this.randomPays.translations.fr
+                this.randomPays.translations.fra.common
               ).toLowerCase() ||
             this.normalizePays(this.paysInput).toLowerCase() ===
-              this.normalizePays(this.randomPays.name).toLowerCase()
+              this.normalizePays(this.randomPays.name.common).toLowerCase() ||
+            this.normalizePays(this.paysInput).toLowerCase() ===
+              this.normalizePays(this.randomPays.translations.fra.official)
           ) {
             this.validerLemot(true);
           }
@@ -101,7 +103,7 @@ export default {
           else {
             if (this.nbErreurPaysCourant < this.nbErreurPossible) {
               this.nbErreurPaysCourant++;
-              this.paysInput = this.randomPays.translations.fr.slice(
+              this.paysInput = this.randomPays.translations.fra.common.slice(
                 0,
                 this.nbErreurPaysCourant
               );
@@ -114,13 +116,13 @@ export default {
         else {
           if (
             this.normalizePays(this.paysInput).toLowerCase() ===
-            this.normalizePays(this.randomPays.name).toLowerCase()
+            this.normalizePays(this.randomPays.name.common).toLowerCase()
           ) {
             this.validerLemot(true);
           } else {
             if (this.nbErreurPaysCourant < this.nbErreurPossible) {
               this.nbErreurPaysCourant++;
-              this.paysInput = this.randomPays.name.slice(
+              this.paysInput = this.randomPays.name.common.slice(
                 0,
                 this.nbErreurPaysCourant
               );

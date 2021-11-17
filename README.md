@@ -4,7 +4,7 @@ JeuPays est un side project ou on va s'amuser/s'entrainer à apprendre des drape
 
 ## Pourquoi ?
 Ce projet est avant tout un entrainement à VueJS avec l'appel à une api externe.
-api utilisé : https://restcountries.eu/
+api utilisé : https://restcountries.com
 
 Il a été développé en parallèle de mes cours de vuejS en Master 1. 
 
